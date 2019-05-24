@@ -6,7 +6,7 @@
 
 ### 仓储目录
 
-1. Spring-Boot：[Spring-Boot](https://beatree.github.io/NoteBook/Spring-Boot/)
+1. Spring-Boot：[Spring-Boot](Spring-Boot/)
 
 
 
