@@ -6,8 +6,7 @@
 
 ## 仓储目录
 
-1. Spring-Boot：[Spring-Boot](Spring-Boot/)
-
+### Spring-Boot：[Spring-Boot](Spring-Boot/)
 
 
 ## 参与贡献
