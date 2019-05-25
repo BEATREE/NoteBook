@@ -229,15 +229,15 @@ public @interface SpringBootApplication {
 
 **@SpringBootConfiguration**: Spring Boot的配置类
 
- 标注在某个类上，表示这是 Spring Boot 的一个配置类
++ 标注在某个类上，表示这是 Spring Boot 的一个配置类
 
-  @Configuration：用于标记配置类
+    - @Configuration：用于标记配置类
 
-   配置类---配置文件；配置类也是容器中的一个组件； @Component
+        - 配置类---配置文件；配置类也是容器中的一个组件； @Component
 
 **@EnableAutoConfiguration**: 开启自动配置
 
- 以前我们需要配置的，现在都不需要配置类；因为 *@EnableAutoConfiguration*告诉了Spring Boot开启自动配置，从而 Spring Boot 可以帮我们进行自动配置。
++ 以前我们需要配置的，现在都不需要配置类；因为 *@EnableAutoConfiguration*告诉了Spring Boot开启自动配置，从而 Spring Boot 可以帮我们进行自动配置。
 
 ```java
 @AutoConfigurationPackage
@@ -250,3 +250,12 @@ public @interface EnableAutoConfiguration {
     String[] excludeName() default {};
 }
 ```
+
+@AutoConfigurationPackage: 自动配置包
+
++ `@Import({Registrar.class})`：
+
+    - Spring 的底层注解 `@Import` ，给容器导入一个组件；导入的组件由 `AutoConfigurationPackages.Registrar.class`
+    - 将主配置类（@SpringBootApplication所标记的类）所在的包，所有的组件都扫描到Spring容器中；
+
+==高亮==
