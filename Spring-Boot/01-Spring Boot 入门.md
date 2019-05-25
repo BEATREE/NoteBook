@@ -166,3 +166,85 @@ class HelloController {
 
 Spring Boot的仲裁中心：
 以后我们导入依赖默认是不需要写版本的：（没有在dependencies里边管理的依赖仍然要声明版本号）
+
+#### 2. 导入的依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+
+#### spring-boot-starter-**web**，不用指定版本，因为在dependencies中进行了管理
+
+> So what's *spring-boot-starter*?
+
+spring-boot-starter: spring-boot 场景启动器，帮我们导入web模块正常运行所依赖的组件；
+
+[官方文档](https://docs.spring.io/spring-boot/docs/2.1.5.RELEASE/reference/htmlsingle/#using-boot-starter)
+
+Spring Boot 将所有的功能场景都抽取出来，做成了一个个的 **starter** 启动器，我们只要在项目中引入相关的starter，那么相关场景的依赖就都会导入进来。我们需要根据需求**按需导入**
+
+### 2. 主程序，主入口类
+
+```java
+/*
+* @SpringBootApplication 用来标注一个主程序，说明这个类是SpringBoot应用
+* */
+@SpringBootApplication
+public class HelloWorldApplication {
+    public static void main(String[] args){
+        // Spring 应用启动
+        SpringApplication.run(HelloWorldApplication.class);
+    }
+}
+```
+
+核心注解 `@SpringBootApplication` ，标记在某个类上说明该类是Spring-Boot的主配置类，Spring-Boot 就应该运行这个类 `main` 方法启动相关的 SpringBoot 应用。
+
+`@SpringBootApplication` 点进去：
+
+```java
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(
+    excludeFilters = {@Filter(
+    type = FilterType.CUSTOM,
+    classes = {TypeExcludeFilter.class}
+), @Filter(
+    type = FilterType.CUSTOM,
+    classes = {AutoConfigurationExcludeFilter.class}
+)}
+)
+@ConfigurationPropertiesScan
+public @interface SpringBootApplication {
+    ...
+}
+```
+
+**@SpringBootConfiguration**: Spring Boot的配置类
+
+    标注在某个类上，表示这是 Spring Boot 的一个配置类
+    @Configuration：用于标记配置类
+        配置类---配置文件；配置类也是容器中的一个组件； @Component
+
+**@EnableAutoConfiguration**: 开启自动配置
+
+    以前我们需要配置的，现在都不需要配置类；因为 *@EnableAutoConfiguration*告诉了Spring Boot开启自动配置，从而 Spring Boot 可以帮我们进行自动配置。
+
+```java
+@AutoConfigurationPackage
+@Import({AutoConfigurationImportSelector.class})
+public @interface EnableAutoConfiguration {
+    String ENABLED_OVERRIDE_PROPERTY = "spring.boot.enableautoconfiguration";
+
+    Class<?>[] exclude() default {};
+
+    String[] excludeName() default {};
+}
+```

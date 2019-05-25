@@ -4,12 +4,12 @@
 
 My study notes, mainly used to store some notes made in the study.
 
-### Storage directory
+## Storage directory
 
 1. Spring-Boot：[Spring-Boot](Spring-Boot/)
 
 
-### Contribution
+## Contribution
 
 1. Fork the repository
 2. Create Feat_xxx branch
@@ -17,6 +17,6 @@ My study notes, mainly used to store some notes made in the study.
 4. Create Pull Request
 
 
-### Gitee Address
+## Gitee Address
 
 [码云地址](https://gitee.com/BEATREEHERO/NoteBook)
