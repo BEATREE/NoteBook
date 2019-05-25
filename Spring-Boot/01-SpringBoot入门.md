@@ -257,5 +257,5 @@ public @interface EnableAutoConfiguration {
 
     - Spring 的底层注解 `@Import` ，给容器导入一个组件；导入的组件由 `AutoConfigurationPackages.Registrar.class`
     - 将主配置类（@SpringBootApplication所标记的类）所在的包，所有的组件都扫描到Spring容器中；
+    - 将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中
 
-==高亮==
