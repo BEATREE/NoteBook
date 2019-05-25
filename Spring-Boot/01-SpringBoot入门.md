@@ -257,5 +257,7 @@ public @interface EnableAutoConfiguration {
 
     - Spring 的底层注解 `@Import` ，给容器导入一个组件；导入的组件由 `AutoConfigurationPackages.Registrar.class`
     - 将主配置类（@SpringBootApplication所标记的类）所在的包，所有的组件都扫描到Spring容器中；
-    - 将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中
+    - 将所有需要导入的组件以全类名的方式返回；这些组件就会被添加到容器中; 会给容器中导入非常多的自动配置类（*AutoConfiguration）；就是给容器中导入这些场景需要的所有组件，并配置好这些组件
+    - 有了自动配置类免去了我们手动配置的繁杂
 
+J2EE 的整体整合解决方案和自动配置都在 `spring-boot-autoconfigure-\*\*.RELEASE.jar`中自动配置了
