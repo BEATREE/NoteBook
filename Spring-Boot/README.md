@@ -6,4 +6,4 @@
 
 ## [03-SpringBoot配置yaml简介](Spring-Boot/03-SpringBoot配置yaml简介)
 
-## [04-YAML语法与文件值获取](Spring-Boot/04-YAML语法与文件值获取)
+## [04-YAML语法与文件值注入](Spring-Boot/04-YAML语法与文件值注入)
