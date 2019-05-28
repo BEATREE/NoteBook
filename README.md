@@ -4,7 +4,7 @@
 
 😊大树的学习笔记，主要用来存放一些在学习之中做的笔记。
 
-## 仓储目录
+## 笔记目录
 
 ### [Spring-Boot](Spring-Boot/)
 
@@ -23,4 +23,5 @@
 ## Github Page
 
 [docsify](https://docsify.js.org/#/)
+
 [英文文档](README.en.md)
