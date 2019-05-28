@@ -189,7 +189,7 @@ person.handsome-boy.age=15
 
 > 通过两个配置文件的对比，我还是更吸引 `.yml` 这种格式的配置。
 
-### @Value获取值和@ConfigurationProperties获取值比较
+### 1. @Value获取值和@ConfigurationProperties获取值比较
 
 |注入方式|@ConfigurationProperties|@Value
 |---|---|---|
@@ -287,3 +287,73 @@ public class HelloController {
 这样就可以拿到配置文件中对应的值: *做棵大树*
 
 > 如果我们专门编写了一个 JavaBean 类和配置文件映射，我们就使用 @ConfigurationProperties
+
+### 2. @PropertySource 和 @ImportResource
+
+`@PropertySource`: 加载指定的配置文件，这里以`.properties`进行操作；
+
+解析`.yml`配置文件请：[点击查看加载.yml配置文件](https://www.jianshu.com/p/37b228028d72)
+
+```java
+/*
+* 将配置文件中配置的每一个属性的值，映射到这个组件中
+* @ConfigurationProperties: 告诉Spring Boot将本类中所有的属性和配置文件中相关的配置进行绑定；
+* (prefix = "person") : 配置文件中同哪个下边的属性进行一一映射
+*
+* 又：只有这个组件是容器中的组件，才能使用容器提供的功能，所以需要添加@Component。例如 @ConfigurationProperties
+
+* @ConfigurationProperties(prefix = "person") 默认从全局配置文件文件中获取，配置过多会导致配置文件过大
+* @PropertySource( value = {"classpath:person.properties"})  //加载指定配置文件
+*/
+@PropertySource( value = {"classpath:person.properties"})  //加载指定配置文件
+@Component
+//@Validated  // JSR303 数据校验
+@ConfigurationProperties(prefix = "person")
+public class Person {
+//    @NotNull    //不能为空
+//    @Email      //需要是Email的格式
+    private String name;    // person's name
+    private Integer age;    // person's age
+    private Boolean boss;   // is this person a boss
+    private Date birth;
+
+    private Map<String, Object> maps;
+    private List<Object> lists;
+    private Boy handsomeBoy;
+
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", boss=" + boss +
+                ", birth=" + birth +
+                ", maps=" + maps +
+                ", lists=" + lists +
+                ", handsomeBoy=" + handsomeBoy +
+                '}';
+    }
+    setters
+    ...
+
+    getters
+    ...
+}
+```
+
+person.properties (注释掉了默认配置文件的相关内容，放到了person.properties):
+
+```properties
+person.name=做棵大树
+person.age=17
+person.boss=false
+person.birth=2018/08/08
+person.maps.k1=v1
+person.maps.k2=v2
+person.lists=a,b,c
+person.handsome-boy.name=BEATREE
+person.handsome-boy.age=15
+```
+
+`@ImportResource`: 导入Spring的配置文件，让配置文件中的内容生效。

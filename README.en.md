@@ -6,7 +6,7 @@ My study notes, mainly used to store some notes made in the study.
 
 ## Storage directory
 
-### Spring-Boot：[Spring-Boot](Spring-Boot/)
+### [Spring-Boot](Spring-Boot/)
 
 
 ## Contribution
@@ -24,3 +24,4 @@ My study notes, mainly used to store some notes made in the study.
 ## Github Page
 
 [docsify](https://docsify.js.org/#/)
+[中文文档](README.md)
