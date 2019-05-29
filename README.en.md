@@ -1,17 +1,21 @@
-# NoteBook
+# 📕 NoteBook
 
-## Description
+## 😊 Description
 
 My study notes, mainly used to store some notes made in the study.
 
-## Note directory
+## 📝 Note directory
 
-### [Spring-Boot](Spring-Boot/)
+### About Framework
 
-### [Django](Django/)
+#### [Spring-Boot](Spring-Boot/)
+
+#### [Django](Django/)
+
+#### [Vue.js](Vue.js/)
 
 
-## Contribution
+## 👏 Contribution
 
 1. Fork the repository
 2. Create Feat_xxx branch
@@ -21,10 +25,10 @@ My study notes, mainly used to store some notes made in the study.
 
 ## Gitee Address
 
-[码云地址](https://gitee.com/BEATREEHERO/NoteBook)
+[Gitee Address](https://gitee.com/BEATREEHERO/NoteBook)
 
 ## Github Page
 
 [docsify](https://docsify.js.org/#/)
 
-[中文文档](README.md)
+[Chinese Document](README.md)

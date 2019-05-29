@@ -1,19 +1,21 @@
-# NoteBook📕
+# 📕 NoteBook
 
-## 介绍
+## 😊 介绍
 
-😊大树的学习笔记，主要用来存放一些在学习之中做的笔记。
+大树的学习笔记，主要用来存放一些在学习之中做的笔记。
 
-## 笔记目录
+## 📝 笔记目录
 
-### [Spring-Boot](Spring-Boot/)
+### 框架学习
 
-### [Django](Django/)
+#### [Spring-Boot](Spring-Boot/)
 
-### [Vue.js](Vue.js/)
+#### [Django](Django/)
+
+#### [Vue.js](Vue.js/)
 
 
-## 参与贡献
+## 👏 参与贡献
 
 1. Fork 本仓库
 2. 新建 Feat_xxx 分支
@@ -28,4 +30,4 @@
 
 [docsify](https://docsify.js.org/#/)
 
-[英文文档](README.en.md)
+[查看英文文档](README.en.md)
