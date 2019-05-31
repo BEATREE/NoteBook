@@ -189,7 +189,7 @@ person.handsome-boy.age=15
 
 > 通过两个配置文件的对比，我还是更吸引 `.yml` 这种格式的配置。
 
-### 1. @Value获取值和@ConfigurationProperties获取值比较
+### 1. @ConfigurationProperties获取值和@Value获取值比较
 
 |注入方式|@ConfigurationProperties|@Value
 |---|---|---|
@@ -294,6 +294,8 @@ public class HelloController {
 
 解析`.yml`配置文件请：[点击查看加载.yml配置文件](https://www.jianshu.com/p/37b228028d72)
 
+`@PropertySource( value = {"classpath:person.properties"})`中的 value 属性是一个数组，可以加载多个配置文件，这里我们加载 `classpath` 下的 `person.properties` 配置文件。
+
 ```java
 /*
 * 将配置文件中配置的每一个属性的值，映射到这个组件中
@@ -357,3 +359,66 @@ person.handsome-boy.age=15
 ```
 
 `@ImportResource`: 导入Spring的配置文件，让配置文件中的内容生效。
+
+我们为了测试，首先创建一个 spring 的xml配置文件`bean.xml`，再创建一个 service 类`HelloService.java`，然后我们采用传统的方式进行加载：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--  加载进来 HelloService 包  -->
+    <bean id="helloService" class="club.teenshare.xzy.springinitializerhelloworld.service.HelloService" ></bean>
+</beans>
+```
+
+Spring Boot 里面没有 Spring 的配置文件，我们自己编写的文件也不能自动识别；
+
+可是，我们想让 Spring 的配置文件生效自动加载进来，那怎么办呢？？
+
+`@ImportResource` 标记在一个主配置类 (也就是在main/java目录下的主配置文件`**Application`) 上：
+
+`@ImportResource(locations = {"classpath:beans.xml"})` 注解中的 `locations` 属性值也是一个数组，可用来加载多个配置文件，同理，我们这里加载的是 `classpath` 下的 `beans.xml`
+
+```java
+@ImportResource(locations = {"classpath:beans.xml"})
+// 导入 Spring 的配置文件使其生效
+@SpringBootApplication
+public class SpringInitializerHelloworldApplication {
+    ...
+}
+```
+
+⬆⬆⬆但这并不是Spring Boot推荐的给容器添加组件的方式，Spring Boot也不希望我们再去编写 Spring 的配置文件；那它想怎么做呢？？
+
+下面我们来说一下Spring Boot推荐的给容器添加组件的方式：**推荐使用全注解的方式**
+
+1. 配置类 ---- Spring 配置文件
+2. `@Bean` 注解 为容器添加组件
+
+    + 我们创建一个专门的配置类 `MyAppConfig.java` (命名可随意命名) *仔细看代码中的注释哦*
+
+    ```java
+    /*
+    * @Configuration 这个注解指明当前类是一个配置类；就是来代替之前Spring的配置文件的
+    *
+    * 在以前的配置文件中是通过使用 <bean></bean> 标签来添加组件的，在这里我们使用 @Bean 注解
+    */
+    @Configuration
+    public class MyAppConfig {
+
+        // 将方法的返回值添加到容器中，容器中这个组件默认的 ID 就是方法名
+        @Bean
+        public HelloService helloService(){
+            System.out.println("通过 配置类 的 @Bean 注解为容器添加了组件");
+            return new HelloService();
+        }
+    }
+    ```
+
+    然后我们将刚刚的 `@ImportResource` 注解内容给注释掉，再执行一次单元测试，我们发现控制台输出了相关的内容，同时也完成了组件的添加
+
+    ![@Bean注释导入组件](../pics/XZY_2019-05-31_23-03-53.png)
+
+
