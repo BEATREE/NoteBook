@@ -31,7 +31,7 @@ AspectJ是一个**面向切面的框架**，它扩展了Java语言。AspectJ定�
     6. 匹配所有 save 开头的方法：`execution(* save*(..))`
     7. 匹配指定包下所有类的方法：`execution(* cn.itcast.dao.*(..))`，但**不包含子包**
 
-## Spring使用AspectJ进行AOP的开发：XML的方式
+## Spring使用AspectJ进行AOP开发：XML的方式
 
 ### 第一步，引入相应的Jar包
 
@@ -145,5 +145,64 @@ public void testAop(){
 }
 ```
 
+## Spring使用AspectJ进行AOP开发：注解方式
+
+第一步：创建对象
+
+```xml
+<!-- 创建对象 -->
+<bean id="book" class="club.teenshare.aop.Book"></bean>
+<bean id="myBook" class="club.teenshare.aop.MyBook"></bean>
+```
+
+第二步：在 spring 的核心配置文件中，开启 aop 操作
+
+```xml
+<!-- 开启 aop 操作 -->
+<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+```
+
+第三步：在增强类的上边可以使用注解来实现操作
+
+`@Aspect` 来标注增强类；在增强的方法上`加上增强类型以及execution表达式`
+
+增强类 MyBook.java 代码：
+
+```java
+@Aspect				// 表明是增强类
+public class MyBook {
+    // 前置通知
+    // *：方法的访问修饰符，也可写为execution(public void club.teenshare.aop.Book.*(..))，但一般都不会用
+    @Before("execution(* club.teenshare.aop.Book.*(..))")
+	public void say(){
+		System.out.println("MyBook>..........");
+	}
+}
+```
+
+另外附上目标类 `Book.java`以及测试类代码：
+
+Book.java:
+
+```java
+public class Book {
+	public void name(){
+		System.out.println("Book's Name:........");
+	}
+}
+```
+
+TestExample.java
+
+```java
+public class TestExample {
+	@Test
+	public void test(){
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		Book book = (Book) context.getBean("book");
+		book.name();
+	}
+}
+```
 
 
