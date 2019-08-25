@@ -13,9 +13,27 @@ AspectJ是一个**面向切面的框架**，它扩展了Java语言。AspectJ定�
 1. 基于AspectJ的 **xml配置文件** 的方式
 2. 基于AspectJ的 **注解** 的方式
 
+---
+
+## 使用表达式配置切入点
+
+1. 切入点： 实际增强的方法
+
+2. 常用表达式：`execution(<访问修饰符>?<返回类型><方法名>(<参数>)<异常>)`
+
+    具体例子：(注意在访问修饰符后有一个空格)
+
+    1. 匹配所有类的public方法：`execution(public *.*(..))`
+    2. 匹配所有类里面的所有的方法：`execution(* *.*(..))`
+    3. `execution(* cn.itcast.dao..*(..))`，`..*`表示包、子孙包下所有类。
+    4. 匹配指定类所有方法：`execution(* cn.itcast.service.UserService.*(..))`
+    5. 匹配实现特定接口的所有类的方法：`execution(* cn.itcast.dao.GenericDAO+.*(..))`
+    6. 匹配所有 save 开头的方法：`execution(* save*(..))`
+    7. 匹配指定包下所有类的方法：`execution(* cn.itcast.dao.*(..))`，但**不包含子包**
+
 ## Spring使用AspectJ进行AOP的开发：XML的方式
 
-第一步，引入相应的Jar包
+### 第一步，引入相应的Jar包
 
 使用`@AspectJ`的话，除了导入最基本的Jar包外，使用AspectJ还需要导入`Spring AOP`和`AspectJ`相关的Jar包。
 
@@ -29,7 +47,7 @@ AspectJ的开发包:
 1. aspectjweaver-1.8.7.jar
 2. spring-aspects-4.2.4.RELEASE.jar
 
-第二步，创建 spring 核心配置文件，导入 aop 约束
+### 第二步，创建 spring 核心配置文件，导入 aop 约束
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -45,7 +63,7 @@ AspectJ的开发包:
 						">
 ```
 
-第三步：编写目标类以及增强类（增强类用于增强目标类）
+### 第三步：编写目标类以及增强类（增强类用于增强目标类）
 
 目标类 Book.java
 
@@ -66,16 +84,30 @@ public class Book {
 ```java
 // 增强类，用于增强目标类
 
+// 增强类，用于增强目标类
+
 package club.teenshare.aop;
+
+import org.aspectj.lang.ProceedingJoinPoint;
 
 public class MyBook {
 	public void before1(){
 		System.out.println("前置增强.........");
 	}
+	public void after1(){
+		System.out.println("后置增强.........");
+	}
+	// 环绕通知
+	public void arround1(ProceedingJoinPoint joinPoint) throws Throwable{
+		System.out.println("方法之前执行...........环绕");
+        // 让被增强的方法执行
+        joinPoint.proceed();
+        System.out.println("方法之后执行...........环绕");
+	}
 }
 ```
 
-第四步，配置 applicationContext.xml 文件指定增强类与目标类
+### 第四步，配置 applicationContext.xml 文件指定增强类与目标类
 
 ```xml
 <!-- 1 配置对象 -->
@@ -85,15 +117,19 @@ public class MyBook {
 <aop:config>
 <!-- 2.1 配置切入点 -->
 <aop:pointcut expression="execution(* club.teenshare.aop.Book.*(..))" id="pointcut1"/>
-<!-- 2.2 配置切入面
+    <!-- 2.2 配置切入面
         将增强用到方法上的过程
     -->
-<aop:aspect ref="myBook">
-    <!-- 配置增强的类型
-        method：有不同的增强方式，前置增强等等
-        pointcut-ref: 指定 pointcut的id
-        -->
-    <aop:before method="before1" pointcut-ref="pointcut1"/>
+    <aop:aspect ref="myBook">
+        <!-- 配置增强的类型
+            method：有不同的增强方式，前置增强等等
+            pointcut-ref: 指定 pointcut的id
+            -->
+        <aop:before method="before1" pointcut-ref="pointcut1"/>
+        <!-- 后置通知 -->
+        <aop:after-returning method="after1" pointcut-ref="pointcut1"/>
+        <!-- 环绕类型 -->
+        <aop:around method="arround1" pointcut-ref="pointcut1"/>
 </aop:aspect>
 </aop:config>
 ```
@@ -109,20 +145,5 @@ public void testAop(){
 }
 ```
 
-## 使用表达式配置切入点
-
-1. 切入点： 实际增强的方法
-
-2. 常用表达式：`execution(<访问修饰符>?<返回类型><方法名>(<参数>)<异常>)`
-
-    具体例子：(注意在访问修饰符后有一个空格)
-
-    1. 匹配所有类的public方法：`execution(public *.*(..))`
-    2. 匹配所有类里面的所有的方法：`execution(* *.*(..))`
-    3. `execution(* cn.itcast.dao..*(..))`，`..*`表示包、子孙包下所有类。
-    4. 匹配指定类所有方法：`execution(* cn.itcast.service.UserService.*(..))`
-    5. 匹配实现特定接口的所有类的方法：`execution(* cn.itcast.dao.GenericDAO+.*(..))`
-    6. 匹配所有 save 开头的方法：`execution(* save*(..))`
-    7. 匹配指定包下所有类的方法：`execution(* cn.itcast.dao.*(..))`，但**不包含子包**
 
 

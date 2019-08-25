@@ -268,7 +268,7 @@ applicationContext.xml
 ```
 
 
-## (重点)注入对象类型属性
+## (重点) 注入对象类型属性
 
 1. 创建 service 类以及 dao 属性
 	1. 在 service 中得到 dao 对象
