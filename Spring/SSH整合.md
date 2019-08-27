@@ -184,7 +184,7 @@ Spring 配置文件 `applicationContext.xml`，注入 action 实例
 </web-app>
 ```
 
-### Hibern && Spring
+### Hibernate && Spring
 
 在 Spring 配置文件下配置数据库信息，及整合 Hibernate。后者即将 SessionFacotry 交由 Spring 管理：
 
