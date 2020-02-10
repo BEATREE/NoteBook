@@ -16,6 +16,8 @@ My study notes, mainly used to store some notes made in the study.
 
 #### [Vue.js](Vue.js/)
 
+#### [Wechat Mini Program](WechatMP/)
+
 
 ## 👏 Contribution
 
