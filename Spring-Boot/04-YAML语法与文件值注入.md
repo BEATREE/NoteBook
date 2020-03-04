@@ -400,6 +400,7 @@ public class SpringInitializerHelloworldApplication {
     + 我们创建一个专门的配置类 `MyAppConfig.java` (命名可随意命名) *仔细看代码中的注释哦*
 
     ```java
+    
     /*
     * @Configuration 这个注解指明当前类是一个配置类；就是来代替之前Spring的配置文件的
     *
