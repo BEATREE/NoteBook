@@ -18,6 +18,10 @@ My study notes, mainly used to store some notes made in the study.
 
 #### [Wechat Mini Program](WechatMP/)
 
+### Others
+
+[Project Manage](PMP项目管理笔记/)
+
 
 ## 👏 Contribution
 
